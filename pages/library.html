@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论文库 - PDF论文分析器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 812px;
+            width: 375px;
+            overflow: hidden;
+            background-color: #f7f9fc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">我的论文库</h1>
+            <div class="flex space-x-3">
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分类标签 -->
+    <div class="container mx-auto px-4 py-3 overflow-x-auto">
+        <div class="flex space-x-2 pb-1">
+            <button class="px-4 py-1.5 bg-blue-600 text-white rounded-full text-sm font-medium whitespace-nowrap">
+                全部
+            </button>
+            <button class="px-4 py-1.5 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                人工智能
+            </button>
+            <button class="px-4 py-1.5 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                机器学习
+            </button>
+            <button class="px-4 py-1.5 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                深度学习
+            </button>
+            <button class="px-4 py-1.5 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                数据挖掘
+            </button>
+        </div>
+    </div>
+    
+    <!-- 论文列表 -->
+    <div class="container mx-auto px-4 py-4 flex-1 overflow-y-auto" style="height: calc(100% - 170px);">
+        <div class="grid grid-cols-2 gap-4">
+            <a href="reader.html" class="block bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-32 bg-blue-100 flex items-center justify-center border-b">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div class="p-3">
+                    <p class="text-sm font-medium text-gray-800 line-clamp-2">图神经网络在推荐系统中的应用研究</p>
+                    <p class="text-xs text-gray-500 mt-1">添加于 2023/03/15</p>
+                </div>
+            </a>
+            
+            <a href="#" class="block bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-32 bg-blue-100 flex items-center justify-center border-b">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div class="p-3">
+                    <p class="text-sm font-medium text-gray-800 line-clamp-2">基于Transformer的自然语言处理模型进展</p>
+                    <p class="text-xs text-gray-500 mt-1">添加于 2023/03/10</p>
+                </div>
+            </a>
+            
+            <a href="#" class="block bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-32 bg-blue-100 flex items-center justify-center border-b">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div class="p-3">
+                    <p class="text-sm font-medium text-gray-800 line-clamp-2">分布式深度学习系统性能优化</p>
+                    <p class="text-xs text-gray-500 mt-1">添加于 2023/02/22</p>
+                </div>
+            </a>
+            
+            <a href="#" class="block bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-32 bg-blue-100 flex items-center justify-center border-b">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div class="p-3">
+                    <p class="text-sm font-medium text-gray-800 line-clamp-2">联邦学习隐私保护算法综述</p>
+                    <p class="text-xs text-gray-500 mt-1">添加于 2023/02/15</p>
+                </div>
+            </a>
+            
+            <a href="#" class="block bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-32 bg-blue-100 flex items-center justify-center border-b">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div class="p-3">
+                    <p class="text-sm font-medium text-gray-800 line-clamp-2">强化学习在机器人控制中的应用</p>
+                    <p class="text-xs text-gray-500 mt-1">添加于 2023/01/28</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] pt-2 pb-6">
+        <div class="flex justify-around">
+            <a href="library.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-blue-600">论文库</span>
+            </a>
+            <a href="favorites.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-gray-500">收藏</span>
+            </a>
+            <div class="relative -mt-5">
+                <a href="import.html" class="flex items-center justify-center h-14 w-14 rounded-full bg-blue-600 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </a>
+            </div>
+            <a href="#" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-gray-500">AI助手</span>
+            </a>
+            <a href="settings.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-gray-500">设置</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

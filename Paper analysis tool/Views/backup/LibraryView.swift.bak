@@ -1,0 +1,47 @@
+// 标签部分
+private var tagsSection: some View {
+    Section(header: Text("标签")) {
+        // 已添加的标签
+        ForEach(editedPaper.tags) { tag in
+            HStack {
+                Text(tag.name)
+                Spacer()
+                Button(action: {
+                    editedPaper.tags.removeAll { $0.id == tag.id }
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.red)
+                }
+            }
+        }
+        
+        // 添加标签
+        HStack {
+            TextField("新标签", text: $newTag)
+            
+            Button(action: {
+                if !newTag.isEmpty && !editedPaper.tags.contains(where: { $0.name == newTag }) {
+                    let newTagObject = Tag(name: newTag, color: .blue)
+                    editedPaper.tags.append(newTagObject)
+                    newTag = ""
+                }
+            }) {
+                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(.blue)
+            }
+            .disabled(newTag.isEmpty)
+        }
+        
+        // 已有标签选择
+        if !dataStore.tags.isEmpty {
+            Picker("选择已有标签", selection: $newTag) {
+                Text("选择标签").tag("")
+                ForEach(dataStore.tags.filter { tag in
+                    !editedPaper.tags.contains(where: { $0.id == tag.id })
+                }) { tag in
+                    Text(tag.name).tag(tag.name)
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏内容 - PDF论文分析器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 812px;
+            width: 375px;
+            overflow: hidden;
+            background-color: #f7f9fc;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-full">
+    <!-- 顶部导航栏 -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="reader.html" class="mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-xl font-bold text-gray-800 truncate max-w-[240px]">收藏内容</h1>
+            </div>
+            <div class="flex space-x-2">
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 标签切换 -->
+    <div class="flex border-b border-gray-300 bg-white">
+        <a href="reader.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            概览
+        </a>
+        <a href="keywords.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            关键词
+        </a>
+        <a href="knowledge-graph.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            知识图谱
+        </a>
+        <a href="code-analysis.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            代码分析
+        </a>
+        <a href="#" class="flex-1 py-3 text-center text-sm font-medium text-gray-800 border-b-2 border-blue-600">
+            收藏
+        </a>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white p-3 border-b border-gray-200">
+        <div class="flex items-center space-x-3">
+            <div class="relative flex-1">
+                <input type="text" class="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索收藏内容">
+                <div class="absolute left-3 top-2.5 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+            <button class="p-2 rounded-md bg-gray-100 hover:bg-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mt-3 flex overflow-x-auto pb-1 space-x-2">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-full text-xs font-medium whitespace-nowrap">
+                全部
+            </button>
+            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap">
+                图神经网络
+            </button>
+            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap">
+                推荐系统
+            </button>
+            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap">
+                代码示例
+            </button>
+            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap">
+                重要公式
+            </button>
+        </div>
+    </div>
+    
+    <!-- 收藏内容列表 -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-4">
+        <!-- 收藏项目 - 定义 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="border-l-4 border-blue-600 px-4 py-3">
+                <div class="flex justify-between items-start mb-1">
+                    <div>
+                        <span class="text-sm font-semibold text-gray-800">图神经网络定义</span>
+                        <span class="ml-2 text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded">定义</span>
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
+                        </button>
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">图神经网络在推荐系统中的应用研究 | 第4页</p>
+            </div>
+            <div class="p-4">
+                <p class="text-sm text-gray-800">图神经网络（Graph Neural Networks, GNNs）是一类专门用于处理图结构数据的深度学习模型。在推荐系统中，用户-物品交互自然形成二分图结构，因此GNN成为处理推荐问题的有力工具。</p>
+            </div>
+        </div>
+        
+        <!-- 收藏项目 - 公式 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="border-l-4 border-purple-600 px-4 py-3">
+                <div class="flex justify-between items-start mb-1">
+                    <div>
+                        <span class="text-sm font-semibold text-gray-800">GNN核心公式</span>
+                        <span class="ml-2 text-xs px-2 py-0.5 bg-purple-100 text-purple-800 rounded">公式</span>
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
+                        </button>
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">图神经网络在推荐系统中的应用研究 | 第7页</p>
+            </div>
+            <div class="p-4">
+                <div class="bg-gray-100 p-3 rounded-md text-center">
+                    <p class="text-sm text-gray-800 font-mono">h_v^{(l+1)} = σ(∑_{u ∈ N(v)} (1/c_{v,u}) · W^{(l)} · h_u^{(l)})</p>
+                </div>
+                <p class="text-sm text-gray-800 mt-3">其中，h_v^{(l)}表示节点v在第l层的特征表示，N(v)表示节点v的邻居集合，c_{v,u}是归一化常数，W^{(l)}是可学习的权重矩阵，σ是非线性激活函数。</p>
+            </div>
+        </div>
+        
+        <!-- 收藏项目 - 代码 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="border-l-4 border-green-600 px-4 py-3">
+                <div class="flex justify-between items-start mb-1">
+                    <div>
+                        <span class="text-sm font-semibold text-gray-800">GNN核心操作代码</span>
+                        <span class="ml-2 text-xs px-2 py-0.5 bg-green-100 text-green-800 rounded">代码</span>
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
+                        </button>
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">图神经网络在推荐系统中的应用研究 | 第11页</p>
+            </div>
+            <div class="p-4">
+                <div class="bg-gray-800 p-3 rounded-md">
+                    <pre class="text-xs text-gray-200 font-mono overflow-x-auto"><code>def forward(self, x, edge_index):
+    # 线性变换
+    x = self.linear(x)
+    
+    # 消息传递
+    x = self.propagate(edge_index, x=x)
+    
+    # 非线性激活
+    x = self.act(x)
+    
+    return x</code></pre>
+                </div>
+                <p class="text-sm text-gray-800 mt-3">GNN层的前向传播函数实现，包含线性变换、消息传递和非线性激活三个核心步骤。这是GNN实现信息传递和聚合的关键部分。</p>
+            </div>
+        </div>
+        
+        <!-- 收藏项目 - 结论 -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="border-l-4 border-yellow-600 px-4 py-3">
+                <div class="flex justify-between items-start mb-1">
+                    <div>
+                        <span class="text-sm font-semibold text-gray-800">实验结论</span>
+                        <span class="ml-2 text-xs px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded">结论</span>
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
+                        </button>
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">图神经网络在推荐系统中的应用研究 | 第24页</p>
+            </div>
+            <div class="p-4">
+                <p class="text-sm text-gray-800">实验结果表明，基于图神经网络的推荐模型相比传统的矩阵分解和基于深度学习的方法，在各项评估指标上均取得了显著提升：NDCG提高了15.3%，Recall提高了12.8%，Precision提高了14.2%。特别是在数据稀疏的情况下，GNN模型的性能优势更为明显，这表明其能有效捕获高阶连接关系，缓解数据稀疏问题。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] pt-2 pb-6">
+        <div class="flex justify-around">
+            <a href="library.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-gray-500">论文库</span>
+            </a>
+            <a href="#" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-blue-600">收藏</span>
+            </a>
+            <div class="relative -mt-5">
+                <a href="import.html" class="flex items-center justify-center h-14 w-14 rounded-full bg-blue-600 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </a>
+            </div>
+            <a href="#" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-gray-500">AI助手</span>
+            </a>
+            <a href="settings.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="mt-1 text-xs font-medium text-gray-500">设置</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

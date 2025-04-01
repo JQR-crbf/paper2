@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关键词分析 - PDF论文分析器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 812px;
+            width: 375px;
+            overflow: hidden;
+            background-color: #f7f9fc;
+        }
+        
+        .pdf-view {
+            height: 35%;
+            overflow-y: auto;
+            background-color: #f1f5f9;
+        }
+        
+        .analysis-tabs {
+            height: 65%;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tab-content {
+            flex: 1;
+            overflow-y: hidden;
+            display: flex;
+        }
+        
+        .keywords-list {
+            width: 35%;
+            overflow-y: auto;
+            border-right: 1px solid #e5e7eb;
+        }
+        
+        .keyword-content {
+            width: 65%;
+            overflow-y: auto;
+            background-color: white;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-full">
+    <!-- 顶部导航栏 -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="reader.html" class="mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-xl font-bold text-gray-800 truncate max-w-[240px]">关键词分析</h1>
+            </div>
+            <div class="flex space-x-2">
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PDF 预览区域 (缩小版) -->
+    <div class="pdf-view border-b border-gray-300">
+        <div class="p-3 flex justify-between items-center bg-white shadow-sm">
+            <div class="flex items-center">
+                <span class="text-xs font-medium text-gray-600">图神经网络在推荐系统中的应用研究</span>
+            </div>
+            <div class="flex space-x-1">
+                <button class="p-1 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 论文内容示意 (与当前关键词相关的部分) -->
+        <div class="p-4 bg-white mx-4 my-3 rounded-lg shadow-sm">
+            <p class="text-xs text-gray-800 mb-2">
+                <span class="bg-yellow-200 px-1">图神经网络</span>
+                （Graph Neural Networks, GNNs）是一类专门用于处理图结构数据的深度学习模型。在推荐系统中，用户-物品交互自然形成二分图结构，因此GNN成为处理推荐问题的有力工具。
+            </p>
+            <p class="text-xs text-gray-800">
+                GNN的核心操作是<span class="bg-yellow-200 px-1">信息传递与聚合</span>，通过在节点间传播和聚合特征，捕获图中的结构信息和语义信息。这种机制特别适合处理推荐系统中的<span class="bg-yellow-200 px-1">协同过滤</span>问题。
+            </p>
+        </div>
+    </div>
+    
+    <!-- 分析标签区域 -->
+    <div class="analysis-tabs flex-1">
+        <!-- 标签切换 -->
+        <div class="flex border-b border-gray-300 bg-white">
+            <a href="reader.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+                概览
+            </a>
+            <a href="#" class="flex-1 py-3 text-center text-sm font-medium text-gray-800 border-b-2 border-blue-600">
+                关键词
+            </a>
+            <a href="knowledge-graph.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+                知识图谱
+            </a>
+            <a href="code-analysis.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+                代码分析
+            </a>
+            <a href="favorites.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+                收藏
+            </a>
+        </div>
+        
+        <!-- 关键词内容 -->
+        <div class="tab-content">
+            <!-- 左侧关键词列表 -->
+            <div class="keywords-list bg-white">
+                <div class="p-3 border-b border-gray-200">
+                    <div class="relative">
+                        <input type="text" class="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索关键词">
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-2 border-b border-gray-200 bg-gray-50">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-medium text-gray-500">排序方式:</span>
+                        <select class="text-xs border-0 bg-transparent focus:outline-none focus:ring-0">
+                            <option>频率</option>
+                            <option>字母</option>
+                            <option>相关性</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <ul class="divide-y divide-gray-200">
+                    <li class="px-4 py-3 bg-blue-50 border-l-4 border-blue-600">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-900">图神经网络</span>
+                            <span class="text-xs font-medium text-gray-500">42次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Graph Neural Network</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">推荐系统</span>
+                            <span class="text-xs font-medium text-gray-500">38次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Recommendation System</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">协同过滤</span>
+                            <span class="text-xs font-medium text-gray-500">26次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Collaborative Filtering</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">信息传递</span>
+                            <span class="text-xs font-medium text-gray-500">21次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Message Passing</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">注意力机制</span>
+                            <span class="text-xs font-medium text-gray-500">18次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Attention Mechanism</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">嵌入学习</span>
+                            <span class="text-xs font-medium text-gray-500">15次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Embedding Learning</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">冷启动问题</span>
+                            <span class="text-xs font-medium text-gray-500">12次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Cold-Start Problem</p>
+                    </li>
+                    <li class="px-4 py-3 hover:bg-gray-50">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-800">图卷积网络</span>
+                            <span class="text-xs font-medium text-gray-500">11次</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Graph Convolutional Network</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 右侧关键词详情 -->
+            <div class="keyword-content p-4">
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-bold text-gray-800">图神经网络</h3>
+                        <div class="flex space-x-2">
+                            <button class="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                                </svg>
+                            </button>
+                            <button class="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-1">定义</h4>
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                            <p class="text-sm text-gray-800">图神经网络（Graph Neural Networks, GNNs）是一类专门用于处理图结构数据的深度学习模型，通过对图中节点和边的表示学习，实现节点分类、边预测和图分类等任务。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-1">在本论文中的应用</h4>
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                            <p class="text-sm text-gray-800">本论文将图神经网络应用于推荐系统，通过将用户-物品交互建模为图结构，利用GNN的信息传递机制捕获高阶连接关系，从而提升推荐精度和解释性。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">论文中的相关段落</h4>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                            <span class="text-xs text-gray-500 block mb-1">第2页，第3段</span>
+                            <div class="mb-2">
+                                <p class="text-sm text-gray-800">近年来，<span class="bg-yellow-200 px-1">图神经网络</span>在推荐系统领域展现出巨大潜力，通过对用户-物品交互图的建模，有效捕获了复杂的协同信号。</p>
+                            </div>
+                            <div class="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+                                <p>近年来，图神经网络在推荐系统领域展现出巨大潜力，通过对用户-物品交互图的建模，有效捕获了复杂的协同信号。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                            <span class="text-xs text-gray-500 block mb-1">第4页，第1段</span>
+                            <div class="mb-2">
+                                <p class="text-sm text-gray-800"><span class="bg-yellow-200 px-1">图神经网络</span>（Graph Neural Networks, GNNs）是一类专门用于处理图结构数据的深度学习模型。在推荐系统中，用户-物品交互自然形成二分图结构，因此GNN成为处理推荐问题的有力工具。</p>
+                            </div>
+                            <div class="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+                                <p>图神经网络（Graph Neural Networks, GNNs）是一类专门用于处理图结构数据的深度学习模型。在推荐系统中，用户-物品交互自然形成二分图结构，因此GNN成为处理推荐问题的有力工具。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                            <span class="text-xs text-gray-500 block mb-1">第9页，第2段</span>
+                            <div class="mb-2">
+                                <p class="text-sm text-gray-800">本文提出的模型采用多层<span class="bg-yellow-200 px-1">图神经网络</span>结构，每一层通过聚合邻居信息更新节点表示，从而在高维空间中捕获用户兴趣与物品特性。</p>
+                            </div>
+                            <div class="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+                                <p>本文提出的模型采用多层图神经网络结构，每一层通过聚合邻居信息更新节点表示，从而在高维空间中捕获用户兴趣与物品特性。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

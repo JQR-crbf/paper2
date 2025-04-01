@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码分析 - PDF论文分析器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 812px;
+            width: 375px;
+            overflow: hidden;
+            background-color: #f7f9fc;
+        }
+        
+        .analysis-container {
+            height: calc(100% - 106px);
+            display: flex;
+        }
+        
+        .code-list {
+            width: 35%;
+            overflow-y: auto;
+            border-right: 1px solid #e5e7eb;
+            background-color: white;
+        }
+        
+        .code-detail {
+            width: 65%;
+            overflow-y: auto;
+            background-color: #f7f9fc;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        
+        .hljs-keyword {
+            color: #ff79c6;
+        }
+        
+        .hljs-built_in {
+            color: #8be9fd;
+        }
+        
+        .hljs-string {
+            color: #f1fa8c;
+        }
+        
+        .hljs-number {
+            color: #bd93f9;
+        }
+        
+        .hljs-comment {
+            color: #6272a4;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-full">
+    <!-- 顶部导航栏 -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="reader.html" class="mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-xl font-bold text-gray-800 truncate max-w-[240px]">代码分析</h1>
+            </div>
+            <div class="flex space-x-2">
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 标签切换 -->
+    <div class="flex border-b border-gray-300 bg-white">
+        <a href="reader.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            概览
+        </a>
+        <a href="keywords.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            关键词
+        </a>
+        <a href="knowledge-graph.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            知识图谱
+        </a>
+        <a href="#" class="flex-1 py-3 text-center text-sm font-medium text-gray-800 border-b-2 border-blue-600">
+            代码分析
+        </a>
+        <a href="favorites.html" class="flex-1 py-3 text-center text-sm font-medium text-gray-500 hover:text-gray-800">
+            收藏
+        </a>
+    </div>
+    
+    <!-- 代码分析区域 -->
+    <div class="analysis-container">
+        <!-- 左侧代码片段列表 -->
+        <div class="code-list">
+            <div class="p-3 border-b border-gray-200">
+                <div class="relative">
+                    <input type="text" class="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索代码片段">
+                    <div class="absolute left-3 top-2.5 text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-2 border-b border-gray-200 bg-gray-50">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-medium text-gray-500">代码片段: 4个</span>
+                    <select class="text-xs border-0 bg-transparent focus:outline-none focus:ring-0">
+                        <option>按页码排序</option>
+                        <option>按语言排序</option>
+                        <option>按重要性排序</option>
+                    </select>
+                </div>
+            </div>
+            
+            <ul class="divide-y divide-gray-200">
+                <li class="px-4 py-3 bg-blue-50 border-l-4 border-blue-600">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-900">图神经网络模型</span>
+                        <span class="text-xs font-medium px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Python</span>
+                    </div>
+                    <p class="text-xs text-gray-500 line-clamp-2">包含构建GNN模型类的核心代码，包括信息传递和聚合操作的实现。</p>
+                    <p class="text-xs text-gray-400 mt-1">第11页</p>
+                </li>
+                <li class="px-4 py-3 hover:bg-gray-50">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-800">数据预处理</span>
+                        <span class="text-xs font-medium px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Python</span>
+                    </div>
+                    <p class="text-xs text-gray-500 line-clamp-2">处理用户-物品交互数据，构建图结构的代码实现。</p>
+                    <p class="text-xs text-gray-400 mt-1">第16页</p>
+                </li>
+                <li class="px-4 py-3 hover:bg-gray-50">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-800">损失函数定义</span>
+                        <span class="text-xs font-medium px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Python</span>
+                    </div>
+                    <p class="text-xs text-gray-500 line-clamp-2">自定义损失函数，包括BPR损失和正则化约束。</p>
+                    <p class="text-xs text-gray-400 mt-1">第18页</p>
+                </li>
+                <li class="px-4 py-3 hover:bg-gray-50">
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-800">评估指标计算</span>
+                        <span class="text-xs font-medium px-2 py-0.5 bg-blue-100 text-blue-800 rounded">Python</span>
+                    </div>
+                    <p class="text-xs text-gray-500 line-clamp-2">实现NDCG、Recall和Precision等评估指标的计算方法。</p>
+                    <p class="text-xs text-gray-400 mt-1">第20页</p>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 右侧代码详情 -->
+        <div class="code-detail p-4">
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-lg font-bold text-gray-800">图神经网络模型</h3>
+                    <div class="flex space-x-2">
+                        <button class="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                            </svg>
+                        </button>
+                        <button class="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <span class="inline-block text-xs font-medium text-gray-500 mb-1">位置: 第11页, 图2下方代码块</span>
+                    <div class="code-block p-3 rounded">
+                        <pre><code><span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F
+<span class="hljs-keyword">from</span> torch_geometric.nn <span class="hljs-keyword">import</span> MessagePassing
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GNNLayer</span>(MessagePassing):
+    <span class="hljs-string">"""图神经网络层的实现"""</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_dim, out_dim, aggr=<span class="hljs-string">'mean'</span></span>):
+        <span class="hljs-built_in">super</span>(GNNLayer, self).__init__(aggr=aggr)
+        self.linear = nn.Linear(in_dim, out_dim)
+        self.act = nn.ReLU()
+        
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, edge_index</span>):
+        <span class="hljs-comment"># x: 节点特征矩阵 [num_nodes, in_dim]</span>
+        <span class="hljs-comment"># edge_index: 图的边 [2, num_edges]</span>
+        
+        <span class="hljs-comment"># 线性变换</span>
+        x = self.linear(x)
+        
+        <span class="hljs-comment"># 消息传递</span>
+        x = self.propagate(edge_index, x=x)
+        
+        <span class="hljs-comment"># 非线性激活</span>
+        x = self.act(x)
+        
+        <span class="hljs-keyword">return</span> x
+    
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">message</span>(<span class="hljs-params">self, x_j</span>):
+        <span class="hljs-comment"># 定义消息函数</span>
+        <span class="hljs-keyword">return</span> x_j
+    
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self, aggr_out</span>):
+        <span class="hljs-comment"># 定义更新函数</span>
+        <span class="hljs-keyword">return</span> aggr_out
+        
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">GNNRecommender</span>(nn.Module):
+    <span class="hljs-string">"""基于图神经网络的推荐模型"""</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, num_users, num_items, embedding_dim=<span class="hljs-number">64</span>, num_layers=<span class="hljs-number">2</span></span>):
+        <span class="hljs-built_in">super</span>(GNNRecommender, self).__init__()
+        
+        <span class="hljs-comment"># 初始化用户和物品嵌入</span>
+        self.user_embedding = nn.Embedding(num_users, embedding_dim)
+        self.item_embedding = nn.Embedding(num_items, embedding_dim)
+        
+        <span class="hljs-comment"># 构建多层GNN</span>
+        self.layers = nn.ModuleList()
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_layers):
+            self.layers.append(GNNLayer(embedding_dim, embedding_dim))
+            
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, user_idx, item_idx, edge_index</span>):
+        <span class="hljs-comment"># 获取初始嵌入</span>
+        user_emb = self.user_embedding(user_idx)
+        item_emb = self.item_embedding(item_idx)
+        
+        <span class="hljs-comment"># 合并嵌入</span>
+        x = torch.cat([user_emb, item_emb], dim=<span class="hljs-number">0</span>)
+        
+        <span class="hljs-comment"># 通过GNN层</span>
+        <span class="hljs-keyword">for</span> layer <span class="hljs-keyword">in</span> self.layers:
+            x = layer(x, edge_index)
+            
+        <span class="hljs-comment"># 分离用户和物品的嵌入</span>
+        user_emb_final = x[:user_idx.size(<span class="hljs-number">0</span>)]
+        item_emb_final = x[user_idx.size(<span class="hljs-number">0</span>):]
+        
+        <span class="hljs-keyword">return</span> user_emb_final, item_emb_final</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">代码解析</h4>
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-3">
+                        <h5 class="text-sm font-semibold text-gray-700 mb-1">功能概述</h5>
+                        <p class="text-sm text-gray-800">此代码实现了一个基于图神经网络的推荐系统模型。它利用PyTorch和PyTorch Geometric库构建，包含两个主要类：GNNLayer和GNNRecommender。GNNLayer处理图上的消息传递，GNNRecommender整合多层GNN并处理用户物品交互。</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-3">
+                        <h5 class="text-sm font-semibold text-gray-700 mb-1">核心算法</h5>
+                        <p class="text-sm text-gray-800">核心算法是基于消息传递的图神经网络。在每一层中，模型先对节点特征进行线性变换，然后根据图的边结构进行消息传递和聚合，最后应用非线性激活函数。多层GNN的叠加使模型能够捕获高阶连接关系。</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+                        <h5 class="text-sm font-semibold text-gray-700 mb-1">实现特点</h5>
+                        <ul class="list-disc list-inside text-sm text-gray-800 space-y-1">
+                            <li>基于PyTorch Geometric的MessagePassing基类，简化了图操作</li>
+                            <li>支持灵活配置层数和嵌入维度，适应不同规模的推荐任务</li>
+                            <li>采用均值聚合器，可轻松扩展为其他类型的聚合函数</li>
+                            <li>将用户和物品统一表示，共享同一GNN架构进行处理</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
